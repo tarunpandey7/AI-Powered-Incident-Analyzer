@@ -1,0 +1,139 @@
+[
+  {
+    "id": "KB-001",
+    "title": "Payment API returns HTTP 500",
+    "category": "API / Backend",
+    "symptoms": [
+      "Payment endpoint returns HTTP 500",
+      "payment request fails",
+      "internal server error"
+    ],
+    "diagnostic_checks": [
+      "Check application logs for the request timestamp and stack trace.",
+      "Verify that payment-service dependencies are healthy and reachable.",
+      "Review recent deployments and configuration changes.",
+      "Check whether the error affects all requests or only specific request types."
+    ],
+    "known_resolution": [
+      "If logs identify a recent deployment or configuration change as the cause, follow the team's rollback or correction procedure.",
+      "If a dependency is unhealthy, escalate to the owning service team and follow its recovery procedure."
+    ],
+    "escalation_team": "Backend/API team",
+    "notes": "Do not retry payment requests blindly; first check whether the transaction was already processed."
+  },
+  {
+    "id": "KB-002",
+    "title": "Application cannot connect to database",
+    "category": "Database",
+    "symptoms": [
+      "database connection timeout",
+      "connection refused",
+      "application cannot connect to database"
+    ],
+    "diagnostic_checks": [
+      "Confirm the database service is running and healthy.",
+      "Check the hostname, port, and connection string in the application configuration.",
+      "Verify network access, firewall rules, and DNS resolution from the application environment.",
+      "Review database connection limits and application logs."
+    ],
+    "known_resolution": [
+      "Correct invalid connection settings using the approved configuration process.",
+      "If the database is unavailable or connection limits are exhausted, escalate to the Database/Infrastructure team."
+    ],
+    "escalation_team": "Database / Infrastructure team",
+    "notes": "Never paste credentials or connection strings containing secrets into tickets or chat."
+  },
+  {
+    "id": "KB-003",
+    "title": "Users cannot log in",
+    "category": "Authentication",
+    "symptoms": [
+      "login failure",
+      "invalid credentials",
+      "authentication error",
+      "users cannot sign in"
+    ],
+    "diagnostic_checks": [
+      "Check whether the issue affects one user or multiple users.",
+      "Review authentication service status and relevant error logs.",
+      "Confirm there is no known identity-provider outage.",
+      "Check recent authentication configuration or certificate changes."
+    ],
+    "known_resolution": [
+      "For a single account, follow the approved account recovery process.",
+      "For multiple users or an identity-provider issue, escalate to the Identity/Authentication team."
+    ],
+    "escalation_team": "Identity / Authentication team",
+    "notes": "Never ask users to share passwords, one-time codes, or recovery tokens."
+  },
+  {
+    "id": "KB-004",
+    "title": "Application response is slow",
+    "category": "Performance",
+    "symptoms": [
+      "slow application",
+      "high latency",
+      "requests taking too long",
+      "timeouts"
+    ],
+    "diagnostic_checks": [
+      "Record the time window, affected endpoint, and scope of the issue.",
+      "Check application latency, CPU, memory, and error-rate metrics.",
+      "Review logs for slow database queries or dependency delays.",
+      "Compare the current behavior with recent deployments and traffic changes."
+    ],
+    "known_resolution": [
+      "Address the bottleneck identified by metrics or logs using the team's documented procedure.",
+      "Escalate to the owning application or infrastructure team if the bottleneck is unclear or persists."
+    ],
+    "escalation_team": "Application Support / SRE",
+    "notes": "Avoid restarting services without checking impact and following the team's runbook."
+  },
+  {
+    "id": "KB-005",
+    "title": "HTTP 401 or 403 response",
+    "category": "API / Access",
+    "symptoms": [
+      "HTTP 401",
+      "HTTP 403",
+      "unauthorized",
+      "forbidden",
+      "API access denied"
+    ],
+    "diagnostic_checks": [
+      "Confirm whether the response is 401 (authentication) or 403 (authorization).",
+      "Check token expiry, issuer, audience, and required scopes without exposing the token.",
+      "Verify the caller's role and permissions for the requested resource.",
+      "Review recent access-policy or API-gateway configuration changes."
+    ],
+    "known_resolution": [
+      "Refresh credentials through the approved authentication flow if the token has expired.",
+      "Request the minimum required permission through the approved access process if authorization is missing."
+    ],
+    "escalation_team": "API Platform / Identity team",
+    "notes": "Do not paste access tokens, API keys, or other secrets into the assistant."
+  },
+  {
+    "id": "KB-006",
+    "title": "File upload fails",
+    "category": "Application / Storage",
+    "symptoms": [
+      "file upload error",
+      "upload rejected",
+      "upload timeout",
+      "cannot upload file"
+    ],
+    "diagnostic_checks": [
+      "Check the exact error message and whether all files or only certain files fail.",
+      "Verify file size and file type against the documented limits.",
+      "Check storage-service health and available capacity.",
+      "Review application and storage logs for the failed request."
+    ],
+    "known_resolution": [
+      "Use an allowed file type and remain within the documented size limit.",
+      "If storage or service errors are present, escalate to the Storage/Application team."
+    ],
+    "escalation_team": "Application / Storage team",
+    "notes": "The sample environment does not define actual upload limits; verify them in the real service documentation."
+  }
+]
